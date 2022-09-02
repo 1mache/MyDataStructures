@@ -1,7 +1,19 @@
-﻿class Program
-{
-    static void Main(string[] args)
+﻿namespace MyDataStructures{
+    class Program
     {
-        Console.WriteLine("Hello, World!");
+        static void Main(string[] args)
+        {
+            // var list = new DynArray<int>();
+            // list.Add(1);
+            // list.Add(2);
+            // list.Add(3);
+
+            // System.Console.WriteLine(list.ToString());
+
+            var listModel = new List<int>();
+            listModel.Add(1);
+
+            listModel.Remove(2);
+        }
     }
 }
