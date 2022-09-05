@@ -50,14 +50,27 @@ namespace MyDataStructures
             Length++;
         }
 
-        public bool Contains(T item)
+        public T Find(Predicate<T> predicate, out bool found)
         {
             for (int i = 0; i < Length; i++)
             {
-                if(_storage[i].Equals(item))
-                    return true;
+                if (predicate(_storage[i]))
+                {
+                    found = true;
+                    return(_storage[i]); 
+                }   
             }
-            return false;                
+
+            found = false;
+            return default(T);
+        }
+
+        public bool Contains(T element)
+        {
+            bool found;
+            Find(n => n.Equals(element), out found);
+
+            return found;
         }
 
         public bool Remove(T item)

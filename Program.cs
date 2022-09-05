@@ -3,17 +3,15 @@
     {
         static void Main(string[] args)
         {
-            // var list = new DynArray<int>();
-            // list.Add(1);
-            // list.Add(2);
-            // list.Add(3);
+            var list = new DynArray<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
 
-            // System.Console.WriteLine(list.ToString());
+            bool found;
+            System.Console.WriteLine(list.Find(n => n>2, out found));
 
-            var listModel = new List<int>();
-            listModel.Add(1);
-
-            listModel.Remove(2);
+            //var listModel = new List<int>();
         }
     }
 }
