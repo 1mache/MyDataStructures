@@ -5,14 +5,15 @@ namespace MyDataStructures
 {
     class DynArray<T> : IEnumerable<T>
     {
-        private int _size = 2;
+        //Actual capacity of internal array
+        private int _capacity = 2;
         private T[] _storage;
 
         public int Length { get; private set;} = 0;
 
         public DynArray()
         {
-            _storage = new T[_size];
+            _storage = new T[_capacity];
         }
         public DynArray(int size)
         {
@@ -44,13 +45,12 @@ namespace MyDataStructures
 
         public void Add(T item)
         {
-            if(Length == _size)
+            if(Length == _capacity)
             {
-                var newStorage = new T[_size*2];
-                for (int i = 0; i < _size; i++)
-                {
-                    newStorage[i] = _storage[i];
-                }
+                _capacity = _capacity*2;
+                var newStorage = new T[_capacity];
+                
+                _storage.CopyTo(newStorage, 0);
                 _storage = newStorage;
             }
 
@@ -61,15 +61,15 @@ namespace MyDataStructures
 
         public T Find(Predicate<T> predicate, out bool found)
         {
-            for (int i = 0; i < Length; i++)
+
+            foreach (var item in this)
             {
-                if (predicate(_storage[i]))
+                if (predicate(item))
                 {
                     found = true;
-                    return(_storage[i]); 
+                    return(item); 
                 }   
             }
-
             found = false;
             return default(T);
         }
@@ -98,7 +98,16 @@ namespace MyDataStructures
             string str = "[";
             for (int i = 0; i < Length; i++)
             {
-                str += String.Format("{0},",_storage[i].ToString());
+                var item = _storage[i];
+
+                if (item is null)
+                {
+                    str += "null,";
+                }
+                else
+                {
+                    str += $"{item.ToString()},";
+                }
                 
                 if (i == Length-1)
                 {
