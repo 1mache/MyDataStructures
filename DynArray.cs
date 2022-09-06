@@ -74,6 +74,19 @@ namespace MyDataStructures
             return default(T);
         }
 
+        public int FindIndex(Predicate<T> predicate)
+        {
+
+            for (int i = 0; i < Length; i++)
+            {
+                if (predicate(_storage[i]))
+                {
+                    return(i); 
+                }   
+            }
+            return -1;
+        }
+
         public bool Contains(T element)
         {
             bool found;
@@ -82,15 +95,14 @@ namespace MyDataStructures
             return found;
         }
 
+        public bool RemoveAt(int id)
+        {
+            return false;
+        }
+        
         public bool Remove(T item)
         {
-            for (int i = 0; i < Length; i++)
-            {
-                if(_storage[i].Equals(item))
-                    //Remove functiom
-                    return true;
-            }
-            return false;  
+            return false;
         }
 
         public override string ToString()
