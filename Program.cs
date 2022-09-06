@@ -3,15 +3,20 @@
     {
         static void Main(string[] args)
         {
-            var list = new DynArray<int>();
-            list.Add(1);
-            list.Add(2);
-            list.Add(3);
-
-            bool found;
-            System.Console.WriteLine(list.Find(n => n>2, out found));
-
-            //var listModel = new List<int>();
+            var dogList = new DynArray<Dog>(
+                new Dog(12, "Gerald"),
+                new Dog(3, "Petro"),
+                new Dog(5, "Lalo"),
+                new Dog(7, "Kartofel")
+            );
+            
+            // bool found;
+            // var dog = dogList.Find(d => d.Name.Equals("Laloo"), out found);
+            
+            // if(found)
+            //     System.Console.WriteLine(dog.Age);
+            // else
+            //     System.Console.WriteLine("Not Found");
         }
     }
 }
