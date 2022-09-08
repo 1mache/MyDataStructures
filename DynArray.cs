@@ -87,6 +87,11 @@ namespace MyDataStructures
             return -1;
         }
 
+        public int FindIndex(T item)
+        {
+            return FindIndex(i => i.Equals(item));
+        }
+
         public bool Contains(T element)
         {
             bool found;
@@ -95,14 +100,25 @@ namespace MyDataStructures
             return found;
         }
 
-        public bool RemoveAt(int id)
+        public void RemoveAt(int index)
         {
-            return false;
+            if((index >= Length) || index<0)
+                throw new IndexOutOfRangeException();
+            
+            Length--;
+            Array.Copy(_storage, index+1, _storage, index, Length - index);
+            _storage[Length] = default(T);
         }
         
         public bool Remove(T item)
         {
-            return false;
+            var index = FindIndex(item);
+            
+            if(index == -1)
+                return false;
+            
+            RemoveAt(index);
+            return true;
         }
 
         public override string ToString()

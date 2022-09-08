@@ -3,12 +3,12 @@
     {
         static void Main(string[] args)
         {
-            // var dogList = new DynArray<Dog>(
-            //     new Dog(12, "Gerald"),
-            //     new Dog(3, "Petro"),
-            //     new Dog(5, "Lalo"),
-            //     new Dog(7, "Kartofel")
-            // );
+            var dogList = new DynArray<Dog>(
+                new Dog(12, "Gerald"),
+                new Dog(3, "Petro"),
+                new Dog(5, "Lalo"),
+                new Dog(7, "Kartofel")
+            );
             
             // var dogList = new DynArray<Dog>();
 
@@ -25,7 +25,8 @@
             // dogList.Add(new Dog(83,"Lebediah"));
             // System.Console.WriteLine(dogList.Length);
 
-            var modeList = new List<int>();
+            dogList.RemoveAt(0);
+            System.Console.WriteLine(dogList);
         }
     }
 }

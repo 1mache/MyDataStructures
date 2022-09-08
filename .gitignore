@@ -2,4 +2,3 @@ bin/
 obj/
 .vscode/
 Dog.cs
-Program.cs
