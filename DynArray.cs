@@ -120,6 +120,13 @@ namespace MyDataStructures
             return true;
         }
 
+        public void Clear()
+        {
+            Length = 0;
+            _capacity = 2;
+            _storage = new T[_capacity];
+        }
+
         public override string ToString()
         {
             string str = "[";
