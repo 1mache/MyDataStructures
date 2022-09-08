@@ -25,8 +25,9 @@
             // dogList.Add(new Dog(83,"Lebediah"));
             // System.Console.WriteLine(dogList.Length);
 
-            dogList.RemoveAt(0);
+            dogList.Clear();
             System.Console.WriteLine(dogList);
+            
         }
     }
 }
