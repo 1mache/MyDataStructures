@@ -43,10 +43,27 @@ namespace MyDataStructures
             else
             {
                 _head.Value = item;
-                System.Console.WriteLine($"First element: {item.ToString()}");
             }
 
             Count++;
+        }
+
+        public T Find(Predicate<T> predicate, out bool found)
+        {
+            var node = _head;
+            for (int i = 0; i < Count; i++)
+            {
+                if (predicate(node.Value))
+                {
+                    found = true;
+                    return node.Value;
+                }
+
+                node = node.Next;
+            }
+
+            found = false;
+            return default(T);
         }
 
         public override string ToString()

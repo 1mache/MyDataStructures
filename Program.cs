@@ -10,10 +10,9 @@
                 ll.Add(i);
             }
 
-            foreach (var item in ll)
-            {
-                System.Console.WriteLine(item.ToString());
-            }
+            bool found;
+            var niganei = ll.Find(n => n == 0, out found);
+            System.Console.WriteLine($"Find operation successful: {found}, found {niganei}");
         }
     }
 }
