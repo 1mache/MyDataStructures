@@ -95,7 +95,18 @@ namespace MyDataStructures
 
         public override string ToString()
         {
-            return "";
+            var str = "[";
+
+            foreach (var item in this)
+            {
+                str += item.ToString();
+                str += " => ";
+            }
+            //removes the last " => "
+            str = str.Remove(str.Length - 4);
+            str+= "]";
+
+            return str;
         }
 
         public IEnumerator<T> GetEnumerator()
