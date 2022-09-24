@@ -10,9 +10,9 @@
                 ll.Add(i);
             }
 
-            bool found;
-            var niganei = ll.Find(n => n == 0, out found);
-            System.Console.WriteLine($"Find operation successful: {found}, found {niganei}");
+            bool removed = ll.Remove(n => n==5);
+            System.Console.WriteLine(removed);
+            System.Console.WriteLine(ll.ToString());
         }
     }
 }

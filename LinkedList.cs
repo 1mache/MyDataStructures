@@ -66,10 +66,36 @@ namespace MyDataStructures
             return default(T);
         }
 
+        public bool Remove(Predicate<T> predicate)
+        {
+            if(Count == 0) return false;
+            if(predicate(_head.Value))
+            {
+                _head = _head.Next;
+                Count--;
+                return true;
+            }
+            
+            var prev = _head;
+            var node = _head.Next;
+            while(node != null)
+            {
+                if(predicate(node.Value))
+                {
+                    prev.Next = node.Next;
+                    Count--;
+                    return true;
+                }
+                prev = node;
+                node = node.Next;
+            }
+
+            return false;
+        }
+
         public override string ToString()
         {
-            var str = "";
-            return str;
+            return "";
         }
 
         public IEnumerator<T> GetEnumerator()
