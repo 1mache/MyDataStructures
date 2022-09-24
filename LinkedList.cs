@@ -33,7 +33,7 @@ namespace MyDataStructures
 
         public void Add(T item)
         {
-            if(_head.HasValue)
+            if(Count>0)
             {
                 _last.Next = new LLNode<T>();
                 _last = _last.Next;
