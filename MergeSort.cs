@@ -55,14 +55,10 @@ namespace MyDataStructures
         public static T[] Sort<T>(T[] array) where T: IComparable<T>
         {
             if(array is null)
-            {
                 throw new ArgumentNullException();
-            }
 
             if(array.Length == 0 || array.Length == 1)
-            {
                 return array;
-            }
             
             T[] half1 = new T[array.Length/2];
             T[] half2 = new T[array.Length - half1.Length];
