@@ -95,6 +95,38 @@ namespace MyDataStructures
             return false;
         }
 
+        public void Insert(int id, T item)
+        {
+            if(id > Count-1 || id < 0)
+                throw new IndexOutOfRangeException();
+
+            if(id == 0)
+            {
+                var temp = _head;
+                _head = new LLNode<T>();
+                _head.Value = item;
+                _head.Next = temp;
+
+                Count++;
+            }
+
+            var node = _head;
+            for (int i = 0; i < id; i++)
+            {
+                if(i == id-1)
+                {
+                    var temp = node.Next;
+                    node.Next = new LLNode<T>();
+                    node.Next.Value = item;
+                    node.Next.Next = temp;
+
+                    Count++;
+                }
+
+                node = node.Next;
+            }
+        }
+
         public override string ToString()
         {
             var str = "[";
