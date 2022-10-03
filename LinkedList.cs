@@ -95,6 +95,27 @@ namespace MyDataStructures
             return false;
         }
 
+        public T Pop()
+        {
+            if(Count == 0) 
+                throw new Exception("Linked List is empty, nothing to pop");
+            
+            var current = _head;
+            var newTail = current; 
+
+            while(current.Next is not null)
+            {
+                newTail = current;
+                current = current.Next;
+            }
+
+            newTail.Next = null;
+            _tail = newTail;
+            Count --;
+            
+            return current.Value;
+        }
+
         public void Insert(int id, T item)
         {
             if(id > Count-1 || id < 0)
