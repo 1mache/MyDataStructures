@@ -151,14 +151,16 @@ namespace MyDataStructures
         public override string ToString()
         {
             var str = "[";
-
-            foreach (var item in this)
-            {
-                str += item.ToString();
-                str += " => ";
+            if (Count > 0)
+            {    
+                foreach (var item in this)
+                {
+                    str += item.ToString();
+                    str += " => ";
+                }
+                //removes the last " => "
+                str = str.Remove(str.Length - 4);
             }
-            //removes the last " => "
-            str = str.Remove(str.Length - 4);
             str+= "]";
 
             return str;
