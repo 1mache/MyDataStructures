@@ -5,14 +5,14 @@ namespace MyDataStructures
     class LinkedList<T> : IEnumerable<T>
     {
         private LLNode<T> _head;
-        private LLNode<T> _last;
+        private LLNode<T> _tail;
         
         public int Count { get; private set;} = 0;
 
         public LinkedList()
         {
             _head = new LLNode<T>();
-            _last = _head;
+            _tail = _head;
         }
 
         public T this[int index]
@@ -35,9 +35,9 @@ namespace MyDataStructures
         {
             if(Count>0)
             {
-                _last.Next = new LLNode<T>();
-                _last = _last.Next;
-                _last.Value = item;
+                _tail.Next = new LLNode<T>();
+                _tail = _tail.Next;
+                _tail.Value = item;
             }
             //if adding first time
             else
@@ -84,6 +84,8 @@ namespace MyDataStructures
                 {
                     prev.Next = node.Next;
                     Count--;
+                    if (node == _tail)
+                        _tail = prev;
                     return true;
                 }
                 prev = node;
