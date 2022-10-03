@@ -148,6 +148,31 @@ namespace MyDataStructures
             }
         }
 
+        public void Reverse()
+        {
+            for (int i = 0; i < Count -1; i++)
+            {
+                Insert(i, Pop());
+            }
+        }
+
+        public void ReverseV2()
+        {
+            var node = _head;
+            _head = _tail;
+            _tail = node;
+
+            var prev = node;
+            node = node.Next;
+            for (int i = 0; i < Count-1; i++)
+            {
+                var temp = node.Next;
+                node.Next = prev;
+                prev = node;
+                node = temp;
+            }
+        }
+
         public override string ToString()
         {
             var str = "[";
