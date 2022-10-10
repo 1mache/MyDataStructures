@@ -2,46 +2,50 @@ namespace MyDataStructures
 {
     class Stack<T>
     {
-        private readonly DynArray<T> _storage;
+        private LLNode<T> _head;
+        
+        public int Count = 0;
 
-        public int Count { 
-            get
+        public void Push(T element)
+        {
+            var node = new LLNode<T>();
+            node.Value = element;
+
+            if(_head is null)
             {
-                return _storage.Length;
-            } 
-        }
+                _head = node;
+            }
+            else
+            {
+                node.Next = _head; 
+                _head = node;
+            }
 
-        public Stack()
-        {
-            _storage = new DynArray<T>();
-        }
-
-        public Stack(int capacity)
-        {
-            _storage = new DynArray<T>(capacity);
-        }
-
-        public void Push(T item)
-        {
-            _storage.Add(item);
+            Count++;
         }
 
         public T Pop()
         {
-            var item = _storage[Count-1];
-            _storage.RemoveAt(Count-1);
-
-            return item;
+            if(_head is not null)
+            {
+                var oldHead = _head;
+                _head = _head.Next;
+                Count--;
+                return oldHead.Value;
+            }
+            else return default(T);
         }
 
         public T Peek()
         {
-            return _storage[Count-1];
+            if(_head is not null) return _head.Value;
+            else return default(T);
         }
 
         public void Empty()
         {
-            _storage.Clear();
+            _head = null;
+            Count = 0;
         }
     }
 }
