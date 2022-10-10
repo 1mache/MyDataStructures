@@ -2,46 +2,52 @@ namespace MyDataStructures
 {
     class Queue<T>
     {
-        private readonly DynArray<T> _storage;
+        private LLNode<T> _head;
+        private LLNode<T> _last;
+        
+        public int Count = 0;
 
-        public int Count { 
-            get
+        public void Push(T element)
+        {
+            var node = new LLNode<T>();
+            node.Value = element;
+
+            if(_head is null)
             {
-                return _storage.Length;
-            } 
+                _head = node;
+                _last = _head;
+            }
+            else
+            {
+                _last.Next = node;
+                _last = _last.Next;
+            }
+
+            Count++;
         }
 
-        public Queue()
+        public T Pop()
         {
-            _storage = new DynArray<T>();
-        }
-
-        public Queue(int capacity)
-        {
-            _storage = new DynArray<T>(capacity);
-        }
-
-        public void Enqueue(T item)
-        {
-            _storage.Add(item);
-        }
-
-        public T Dequeue()
-        {
-            var item = _storage[0];
-            _storage.RemoveAt(0);
-
-            return item;
+            if(_head is not null)
+            {
+                var oldHead = _head;
+                _head = _head.Next;
+                Count--;
+                return oldHead.Value;
+            }
+            else return default(T);
         }
 
         public T Peek()
         {
-            return _storage[0];
+            if(_head is not null) return _head.Value;
+            else return default(T);
         }
 
         public void Empty()
         {
-            _storage.Clear();
+            _head = null;
+            Count = 0;
         }
     }
 }
