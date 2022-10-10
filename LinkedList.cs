@@ -9,12 +9,6 @@ namespace MyDataStructures
         
         public int Count { get; private set;} = 0;
 
-        public LinkedList()
-        {
-            _head = new LLNode<T>();
-            _tail = _head;
-        }
-
         public T this[int index]
         {
             get 
@@ -33,16 +27,18 @@ namespace MyDataStructures
 
         public void Add(T item)
         {
-            if(Count>0)
+            //if adding first time
+            if(_head is null)
+            {
+                _head = new LLNode<T>();
+                _head.Value = item;
+                _tail = _head;
+            }
+            else
             {
                 _tail.Next = new LLNode<T>();
                 _tail = _tail.Next;
                 _tail.Value = item;
-            }
-            //if adding first time
-            else
-            {
-                _head.Value = item;
             }
 
             Count++;
