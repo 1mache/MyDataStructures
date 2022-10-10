@@ -4,14 +4,14 @@
         static void Main(string[] args)
         {
             var ll = new LinkedList<int>();
+            ll.Add(0);
+            ll.Add(1);
+            ll.Add(2);
+            ll.Add(3);
+            ll.Add(4);
+            ll.Add(5);
 
-            for (int i = 0; i < 10; i++)
-            {
-                ll.Add(i);
-            }
-
-            bool removed = ll.Remove(n => n==5);
-            System.Console.WriteLine(removed);
+            ll.Pop();
             System.Console.WriteLine(ll.ToString());
         }
     }
