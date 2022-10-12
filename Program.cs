@@ -3,7 +3,7 @@
     {
         static void Main(string[] args)
         {
-            var tree = new BST<int>(5);
+            var tree = new BST<int>();
             tree.Insert(3);
             tree.Insert(1);
             tree.Insert(10);

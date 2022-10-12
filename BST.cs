@@ -4,16 +4,16 @@ namespace MyDataStructures
     {
         private BSTNode<T> _root;
 
-        public BST(T root)
-        {
-            _root = new BSTNode<T>();
-            _root.Value = root;
-        }
-
         public void Insert(T item)
         {
             var inserted = new BSTNode<T>();
             inserted.Value = item;
+
+            if(_root is null)
+            {
+                _root = inserted;
+                return; 
+            }
             
             void internalInsert(BSTNode<T> node)
             {
