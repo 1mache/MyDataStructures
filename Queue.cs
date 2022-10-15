@@ -35,13 +35,13 @@ namespace MyDataStructures
                 Count--;
                 return oldHead.Value;
             }
-            else return default(T);
+            else throw new InvalidOperationException("Queue empty");
         }
 
         public T Peek()
         {
             if(_head is not null) return _head.Value;
-            else return default(T);
+            else throw new InvalidOperationException("Queue empty");
         }
 
         public void Empty()
