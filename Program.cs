@@ -7,8 +7,6 @@
             tree.Insert(3);
             tree.Insert(1);
             tree.Insert(10);
-
-            System.Console.WriteLine("Done");
         }
     }  
 }
