@@ -63,5 +63,25 @@ namespace MyDataStructures
             }
             return null;
         }
+
+        public T[] BreadthFirst()
+        {
+            var data = new DynArray<T>();
+            if(_root is null) return new T[0];
+
+            var nodeQueue = new Queue<BSTNode<T>>();          
+            nodeQueue.Push(_root);
+            
+            while(nodeQueue.Count != 0)
+            {
+                var node = nodeQueue.Pop();
+                data.Add(node.Value);
+                
+                if(node.Left is not null) nodeQueue.Push(node.Left);
+                if(node.Right is not null) nodeQueue.Push(node.Right);
+            }
+
+            return data.ToArray();
+        }
     }
 }
