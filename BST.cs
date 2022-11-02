@@ -101,5 +101,41 @@ namespace MyDataStructures
 
             return preOrderInternal(_root).ToArray();
         }
+
+        public T[] PostOrder()
+        {
+            if(_root is null) return new T[0];
+
+            DynArray<T> preOrderInternal(BSTNode<T> node)
+            {
+                var data = new DynArray<T>();
+
+                if(node.Left is not null) data.AddRange(preOrderInternal(node.Left));
+                if(node.Right is not null) data.AddRange(preOrderInternal(node.Right));
+                data.Add(node.Value);
+
+                return data;
+            }
+
+            return preOrderInternal(_root).ToArray();
+        }
+
+        public T[] InOrder()
+        {
+            if(_root is null) return new T[0];
+
+            DynArray<T> preOrderInternal(BSTNode<T> node)
+            {
+                var data = new DynArray<T>();
+
+                if(node.Left is not null) data.AddRange(preOrderInternal(node.Left));
+                data.Add(node.Value);
+                if(node.Right is not null) data.AddRange(preOrderInternal(node.Right));
+
+                return data;
+            }
+
+            return preOrderInternal(_root).ToArray();
+        }
     }
 }
