@@ -7,6 +7,10 @@
             tree.Insert(3);
             tree.Insert(1);
             tree.Insert(10);
+            foreach (var item in tree.PreOrder())
+            {
+                System.Console.WriteLine(item);
+            }
         }
     }  
 }

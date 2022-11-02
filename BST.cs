@@ -83,5 +83,23 @@ namespace MyDataStructures
 
             return data.ToArray();
         }
+
+        public T[] PreOrder()
+        {
+            if(_root is null) return new T[0];
+
+            IEnumerable<T> preOrderInternal(BSTNode<T> node)
+            {
+                IEnumerable<T> data = new DynArray<T>();
+
+                data = data.Append(node.Value);
+                if(node.Left is not null) data = data.Concat(preOrderInternal(node.Left));
+                if(node.Right is not null) data = data.Concat(preOrderInternal(node.Right));
+
+                return data;
+            }
+
+            return preOrderInternal(_root).ToArray();
+        }
     }
 }
