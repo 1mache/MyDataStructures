@@ -127,14 +127,6 @@ namespace MyDataStructures
             _storage = new T[_capacity];
         }
 
-        public T[] ToArray()
-        {
-            var returned = new T[Length];
-            Array.Copy(_storage, returned, Length);
-
-            return returned;
-        }
-
         public override string ToString()
         {
             string str = "[";
