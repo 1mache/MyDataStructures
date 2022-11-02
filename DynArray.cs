@@ -58,6 +58,17 @@ namespace MyDataStructures
             Length++;
         }
 
+        public void AddRange(IEnumerable<T> range)
+        {
+            if(range is null)
+                throw new ArgumentNullException();
+            
+            foreach (var item in range)
+            {
+                this.Add(item);
+            }
+        }
+
         public T Find(Predicate<T> predicate, out bool found)
         {
 
