@@ -88,13 +88,13 @@ namespace MyDataStructures
         {
             if(_root is null) return new T[0];
 
-            IEnumerable<T> preOrderInternal(BSTNode<T> node)
+            DynArray<T> preOrderInternal(BSTNode<T> node)
             {
-                IEnumerable<T> data = new DynArray<T>();
+                var data = new DynArray<T>();
 
-                data = data.Append(node.Value);
-                if(node.Left is not null) data = data.Concat(preOrderInternal(node.Left));
-                if(node.Right is not null) data = data.Concat(preOrderInternal(node.Right));
+                data.Add(node.Value);
+                if(node.Left is not null) data.AddRange(preOrderInternal(node.Left));
+                if(node.Right is not null) data.AddRange(preOrderInternal(node.Right));
 
                 return data;
             }
