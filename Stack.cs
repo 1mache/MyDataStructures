@@ -2,7 +2,7 @@ namespace MyDataStructures
 {
     class Stack<T>
     {
-        private LLNode<T> _head;
+        private LLNode<T>? _head;
         
         public int Count = 0;
 
@@ -24,7 +24,7 @@ namespace MyDataStructures
             Count++;
         }
 
-        public T Pop()
+        public T? Pop()
         {
             if(_head is not null)
             {
@@ -36,7 +36,7 @@ namespace MyDataStructures
             else throw new InvalidOperationException("Stack empty");
         }
 
-        public T Peek()
+        public T? Peek()
         {
             if(_head is not null) return _head.Value;
             else throw new InvalidOperationException("Stack empty");

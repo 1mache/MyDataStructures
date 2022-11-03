@@ -2,7 +2,7 @@ namespace MyDataStructures
 {
     class MaxBinaryHeap<T> where T:IComparable<T>
     {
-        private DynArray<T> _items;
+        private DynArray<T>? _items;
 
         public void Insert(T item)
         {
@@ -31,7 +31,9 @@ namespace MyDataStructures
 
         public T[] ToArray()
         {
-            return _items.ToArray();
+            if(_items is not null)
+                return _items.ToArray()!;
+            return new T[0];
         }
         
         //=============Aid methods=============

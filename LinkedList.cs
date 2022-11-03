@@ -2,14 +2,14 @@ using System.Collections;
 
 namespace MyDataStructures
 {
-    class LinkedList<T> : IEnumerable<T>
+    class LinkedList<T> : IEnumerable<T?>
     {
         private LLNode<T>? _head;
         private LLNode<T>? _tail;
         
         public int Count { get; private set;} = 0;
 
-        public T this[int index]
+        public T? this[int index]
         {
             get 
             { 
@@ -21,7 +21,7 @@ namespace MyDataStructures
                 {
                     node = node!.Next;
                 }
-                return node!.Value!;
+                return node!.Value;
             }
         }
 
@@ -49,10 +49,10 @@ namespace MyDataStructures
             var node = _head;
             for (int i = 0; i < Count; i++)
             {
-                if (predicate(node!.Value))
+                if (predicate(node!.Value!))
                 {
                     found = true;
-                    return node!.Value!;
+                    return node!.Value;
                 }
 
                 node = node.Next;
@@ -65,7 +65,7 @@ namespace MyDataStructures
         public bool Remove(Predicate<T> predicate)
         {
             if(_head is null) return false;
-            if(predicate(_head.Value))
+            if(predicate(_head.Value!))
             {
                 _head = _head.Next;
                 Count--;
@@ -76,7 +76,7 @@ namespace MyDataStructures
             var node = _head.Next;
             while(node != null)
             {
-                if(predicate(node.Value))
+                if(predicate(node.Value!))
                 {
                     prev.Next = node.Next;
                     Count--;
@@ -91,9 +91,9 @@ namespace MyDataStructures
             return false;
         }
 
-        public T Pop()
+        public T? Pop()
         {
-            if(Count == 0) 
+            if(_head is null) 
                 throw new Exception("Linked List is empty, nothing to pop");
             
             var current = _head;
@@ -112,7 +112,7 @@ namespace MyDataStructures
             return current.Value;
         }
 
-        public void Insert(int id, T item)
+        public void Insert(int id, T? item)
         {
             if(id > Count-1 || id < 0)
                 throw new IndexOutOfRangeException();
@@ -132,7 +132,7 @@ namespace MyDataStructures
             {
                 if(i == id-1)
                 {
-                    var temp = node.Next;
+                    var temp = node!.Next;
                     node.Next = new LLNode<T>();
                     node.Next.Value = item;
                     node.Next.Next = temp;
@@ -140,7 +140,7 @@ namespace MyDataStructures
                     Count++;
                 }
 
-                node = node.Next;
+                node = node!.Next;
             }
         }
 
@@ -154,6 +154,8 @@ namespace MyDataStructures
 
         public void ReverseV2()
         {
+            if(_head is null) return;
+
             var node = _head;
             _head = _tail;
             _tail = node;
@@ -162,7 +164,7 @@ namespace MyDataStructures
             node = node.Next;
             for (int i = 0; i < Count-1; i++)
             {
-                var temp = node.Next;
+                var temp = node!.Next;
                 node.Next = prev;
                 prev = node;
                 node = temp;
@@ -176,6 +178,12 @@ namespace MyDataStructures
             {    
                 foreach (var item in this)
                 {
+                    if (item is null)
+                    {
+                        str += "null,";
+                        continue;
+                    }
+                    
                     str += item.ToString();
                     str += " => ";
                 }
@@ -187,12 +195,12 @@ namespace MyDataStructures
             return str;
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<T?> GetEnumerator()
         {
             var node = _head;
             for (int i = 0; i < Count; i++)
             {
-                yield return node.Value;
+                yield return node!.Value;
                 node = node.Next;
             }
         }

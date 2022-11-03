@@ -2,12 +2,11 @@ namespace MyDataStructures
 {
     class BST<T> where T:IComparable<T>
     {
-        private BSTNode<T> _root;
+        private BSTNode<T>? _root;
 
         public void Insert(T item)
         {
-            var inserted = new BSTNode<T>();
-            inserted.Value = item;
+            var inserted = new BSTNode<T>(item);
 
             if(_root is null)
             {
@@ -42,7 +41,7 @@ namespace MyDataStructures
             internalInsert(_root);
         }
 
-        public BSTNode<T> GetNode(T value)
+        public BSTNode<T>? GetNode(T value)
         {
             //could be done with a recursive internal function as well but now
             //Ill use a while loop :)
@@ -75,13 +74,13 @@ namespace MyDataStructures
             while(nodeQueue.Count != 0)
             {
                 var node = nodeQueue.Pop();
-                data.Add(node.Value);
+                data.Add(node!.Value);
                 
                 if(node.Left is not null) nodeQueue.Push(node.Left);
                 if(node.Right is not null) nodeQueue.Push(node.Right);
             }
 
-            return data.ToArray();
+            return data.ToArray()!;
         }
 
         public T[] PreOrder()
@@ -93,49 +92,49 @@ namespace MyDataStructures
                 var data = new DynArray<T>();
 
                 data.Add(node.Value);
-                if(node.Left is not null) data.AddRange(preOrderInternal(node.Left));
-                if(node.Right is not null) data.AddRange(preOrderInternal(node.Right));
+                if(node.Left is not null) data.AddRange(preOrderInternal(node.Left)!);
+                if(node.Right is not null) data.AddRange(preOrderInternal(node.Right)!);
 
                 return data;
             }
 
-            return preOrderInternal(_root).ToArray();
+            return preOrderInternal(_root).ToArray()!;
         }
 
         public T[] PostOrder()
         {
             if(_root is null) return new T[0];
 
-            DynArray<T> preOrderInternal(BSTNode<T> node)
+            DynArray<T> postOrderInternal(BSTNode<T> node)
             {
                 var data = new DynArray<T>();
 
-                if(node.Left is not null) data.AddRange(preOrderInternal(node.Left));
-                if(node.Right is not null) data.AddRange(preOrderInternal(node.Right));
+                if(node.Left is not null) data.AddRange(postOrderInternal(node.Left)!);
+                if(node.Right is not null) data.AddRange(postOrderInternal(node.Right)!);
                 data.Add(node.Value);
 
                 return data;
             }
 
-            return preOrderInternal(_root).ToArray();
+            return postOrderInternal(_root).ToArray()!;
         }
 
         public T[] InOrder()
         {
             if(_root is null) return new T[0];
 
-            DynArray<T> preOrderInternal(BSTNode<T> node)
+            DynArray<T> inOrderInternal(BSTNode<T> node)
             {
                 var data = new DynArray<T>();
 
-                if(node.Left is not null) data.AddRange(preOrderInternal(node.Left));
+                if(node.Left is not null) data.AddRange(inOrderInternal(node.Left)!);
                 data.Add(node.Value);
-                if(node.Right is not null) data.AddRange(preOrderInternal(node.Right));
+                if(node.Right is not null) data.AddRange(inOrderInternal(node.Right)!);
 
                 return data;
             }
 
-            return preOrderInternal(_root).ToArray();
+            return inOrderInternal(_root).ToArray()!;
         }
     }
 }

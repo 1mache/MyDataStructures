@@ -3,19 +3,16 @@
     {
         static void Main(string[] args)
         {
-            var heap = new MaxBinaryHeap<int>();
-            heap.Insert(10);
-            heap.Insert(7);
-            heap.Insert(5);
-            heap.Insert(4);
-            heap.Insert(1);
-            heap.Insert(6);
-            heap.Insert(2);
+            var list = new DynArray<LLNode<int>?>();
+            list.Add(new LLNode<int>{Value = 3});
+            list.Add(new LLNode<int>{Value = 5});
+            list.Add(new LLNode<int>{Value = 6});
+            list.Add(null);
+            list.Add(new LLNode<int>{Value = 2});
 
-            foreach (var item in heap.ToArray())
-            {
-                System.Console.WriteLine(item);
-            }
+            System.Console.WriteLine(list.ToString());
+            list.Remove(null);
+            System.Console.WriteLine(list.ToString());
         }
     }  
 }

@@ -71,9 +71,7 @@ namespace MyDataStructures
 
             foreach (var item in this)
             {
-                if(item is null) continue;
-
-                if (predicate(item))
+                if (predicate(item!))
                 {
                     found = true;
                     return(item); 
@@ -88,8 +86,6 @@ namespace MyDataStructures
 
             for (int i = 0; i < Length; i++)
             {
-                if(_storage[i] is null) continue;
-
                 if (predicate(_storage[i]!))
                 {
                     return(i); 
@@ -101,7 +97,7 @@ namespace MyDataStructures
         public int FindIndex(T item)
         {
             if(item is null) 
-                throw new ArgumentNullException();
+                return FindIndex(i => i is null);
             return FindIndex(i => item.Equals(i));
         }
 

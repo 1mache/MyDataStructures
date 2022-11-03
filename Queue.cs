@@ -2,8 +2,8 @@ namespace MyDataStructures
 {
     class Queue<T>
     {
-        private LLNode<T> _head;
-        private LLNode<T> _last;
+        private LLNode<T>? _head;
+        private LLNode<T>? _last;
         
         public int Count = 0;
 
@@ -19,14 +19,14 @@ namespace MyDataStructures
             }
             else
             {
-                _last.Next = node;
+                _last!.Next = node;
                 _last = _last.Next;
             }
 
             Count++;
         }
 
-        public T Pop()
+        public T? Pop()
         {
             if(_head is not null)
             {
@@ -38,7 +38,7 @@ namespace MyDataStructures
             else throw new InvalidOperationException("Queue empty");
         }
 
-        public T Peek()
+        public T? Peek()
         {
             if(_head is not null) return _head.Value;
             else throw new InvalidOperationException("Queue empty");
