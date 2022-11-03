@@ -14,14 +14,11 @@ namespace MyDataStructures
         {
             _storage = new T[_capacity];
         }
-        public DynArray(int size)
-        {
-            _storage = new T[size];
-        }
         public DynArray(params T[] items)
         {
             _storage = new T[items.Length];
-            Length = items.Length;
+            _capacity = items.Length;
+            Length = _capacity;
 
             items.CopyTo(_storage,0);
         }
