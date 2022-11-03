@@ -4,8 +4,8 @@ namespace MyDataStructures
 {
     class LinkedList<T> : IEnumerable<T>
     {
-        private LLNode<T> _head;
-        private LLNode<T> _tail;
+        private LLNode<T>? _head;
+        private LLNode<T>? _tail;
         
         public int Count { get; private set;} = 0;
 
@@ -19,9 +19,9 @@ namespace MyDataStructures
                 var node = _head;
                 for (int i = 0; i < index; i++)
                 {
-                    node = node.Next;
+                    node = node!.Next;
                 }
-                return node.Value;
+                return node!.Value!;
             }
         }
 
@@ -36,7 +36,7 @@ namespace MyDataStructures
             }
             else
             {
-                _tail.Next = new LLNode<T>();
+                _tail!.Next = new LLNode<T>();
                 _tail = _tail.Next;
                 _tail.Value = item;
             }
@@ -44,15 +44,15 @@ namespace MyDataStructures
             Count++;
         }
 
-        public T Find(Predicate<T> predicate, out bool found)
+        public T? Find(Predicate<T> predicate, out bool found)
         {
             var node = _head;
             for (int i = 0; i < Count; i++)
             {
-                if (predicate(node.Value))
+                if (predicate(node!.Value))
                 {
                     found = true;
-                    return node.Value;
+                    return node!.Value!;
                 }
 
                 node = node.Next;
@@ -64,7 +64,7 @@ namespace MyDataStructures
 
         public bool Remove(Predicate<T> predicate)
         {
-            if(Count == 0) return false;
+            if(_head is null) return false;
             if(predicate(_head.Value))
             {
                 _head = _head.Next;

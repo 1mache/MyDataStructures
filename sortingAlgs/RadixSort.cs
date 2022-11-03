@@ -59,7 +59,7 @@ namespace MyDataStructures
                 array = new int[]{};
                 foreach (var bucket in buckets)
                 {
-                    array = array.Concat(bucket.ToArray()).ToArray();                    
+                    array = array.Concat(bucket.ToArray()!).ToArray();                    
                 }
             }
 

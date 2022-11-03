@@ -2,11 +2,11 @@ using System.Collections;
 
 namespace MyDataStructures
 {
-    class DynArray<T> : IEnumerable<T>
+    class DynArray<T> : IEnumerable<T?>
     {
         //Actual capacity of internal array
         private int _capacity = 2;
-        private T[] _storage;
+        private T?[] _storage;
 
         public int Length { get; private set;} = 0;
 
@@ -23,7 +23,7 @@ namespace MyDataStructures
             items.CopyTo(_storage,0);
         }
 
-        public T this[int index]
+        public T? this[int index]
         {
             get
             {
@@ -66,11 +66,13 @@ namespace MyDataStructures
             }
         }
 
-        public T Find(Predicate<T> predicate, out bool found)
+        public T? Find(Predicate<T> predicate, out bool found)
         {
 
             foreach (var item in this)
             {
+                if(item is null) continue;
+
                 if (predicate(item))
                 {
                     found = true;
@@ -86,23 +88,29 @@ namespace MyDataStructures
 
             for (int i = 0; i < Length; i++)
             {
-                if (predicate(_storage[i]))
+                if(_storage[i] is null) continue;
+
+                if (predicate(_storage[i]!))
                 {
                     return(i); 
-                }   
+                }  
             }
             return -1;
         }
 
         public int FindIndex(T item)
         {
-            return FindIndex(i => i.Equals(item));
+            if(item is null) 
+                throw new ArgumentNullException();
+            return FindIndex(i => item.Equals(i));
         }
 
-        public bool Contains(T element)
+        public bool Contains(T item)
         {
+            if(item is null) 
+                throw new ArgumentNullException();
             bool found;
-            Find(n => n.Equals(element), out found);
+            Find(n => item.Equals(n), out found);
 
             return found;
         }
@@ -162,7 +170,7 @@ namespace MyDataStructures
             return str;   
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<T?> GetEnumerator()
         {
             for (int i = 0; i < Length; i++)
             {
