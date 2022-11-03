@@ -3,15 +3,16 @@
     {
         static void Main(string[] args)
         {
-            var tree = new BST<int>();
-            tree.Insert(5);
-            tree.Insert(3);
-            tree.Insert(1);
-            tree.Insert(10);
-            tree.Insert(12);
-            tree.Insert(4);
-            tree.Insert(7);
-            foreach (var item in tree.InOrder())
+            var heap = new MaxBinaryHeap<int>();
+            heap.Insert(10);
+            heap.Insert(7);
+            heap.Insert(5);
+            heap.Insert(4);
+            heap.Insert(1);
+            heap.Insert(6);
+            heap.Insert(2);
+
+            foreach (var item in heap.ToArray())
             {
                 System.Console.WriteLine(item);
             }
