@@ -1,9 +1,23 @@
 namespace MyDataStructures
 {
-    class MaxBinaryHeap<T> where T:IComparable<T>
+    enum MinMax 
+    {
+        MAX = 1,
+        MIN = -1
+    }
+
+    class BinaryHeap<T> where T:IComparable<T>
     {
         private DynArray<T>? _items;
+        private MinMax _type;
         public int Length{get; private set;} = 0;
+
+        public BinaryHeap(MinMax type)
+        {
+            //in all the comparisons the comparison sign is basically flipped
+            //by multiplying by _type enum.
+            _type = type;
+        }
 
         public void Insert(T item)
         {
@@ -20,8 +34,8 @@ namespace MyDataStructures
             _items.Add(item);
             int itemId = _items.Length - 1;
             int parentId = ParentId(itemId);
-            //while parent is smaller 
-            while(item.CompareTo(_items[parentId]) > 0)
+            //while parent is smaller(in MAX)/ bigger(in MIN)
+            while(item.CompareTo(_items[parentId]) * ((int)_type) > 0)
             {
                 //swapping value with parent
                 var temp = _items[parentId];
@@ -35,7 +49,7 @@ namespace MyDataStructures
             Length++;
         }
 
-        public T ExtractMax()
+        public T Extract()
         {
             if(_items is null)
                 throw new InvalidOperationException();
@@ -49,13 +63,6 @@ namespace MyDataStructures
             SinkDown(0);
 
             return max!;
-        }
-
-        public T[] ToArray()
-        {
-            if(_items is not null)
-                return _items.ToArray()!;
-            return new T[0];
         }
         
         //=============Aid methods=============
@@ -78,29 +85,29 @@ namespace MyDataStructures
                 {
                     var child2 = _items[child2id]!;
 
-                    if(compared.CompareTo(child1) < 0)
+                    if(compared.CompareTo(child1) * ((int)_type) < 0)
                     {
                         swapId = child1id;
                     }
-                    if(compared.CompareTo(child2) < 0)
+                    if(compared.CompareTo(child2) * ((int)_type) < 0)
                     {
-                        //if we did not initialize swapId meaning child1 is not bigger than subject
+                        //if we did not initialize swapId meaning child1 is not bigger(MAX)/ not smaller(MIN) than subject
                         if(swapId == -1)
                         {
                             swapId = child2id;
                         }
-                        //we initalized swapId meaning child1 is bigger than subject
+                        //we initalized swapId meaning child1 is bigger(MAX)/smaller(MIN) than subject
                         else
                         {
-                            //only if child2 is bigger we change the swapId, if not we should swap with child1
-                            if(child2.CompareTo(child1) > 0) 
+                            //only if child2 is bigger(MAX)/smaller(MIN) we change the swapId, if not we should swap with child1
+                            if(child2.CompareTo(child1) * ((int)_type) > 0) 
                                 swapId = child2id; 
                         }
                     }
                 }
                 else
                 {
-                    if(compared.CompareTo(child1) < 0)
+                    if(compared.CompareTo(child1) * ((int)_type) < 0)
                         swapId = child1id;
                 }
             }

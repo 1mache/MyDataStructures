@@ -3,7 +3,7 @@
     {
         static void Main(string[] args)
         {
-            var heap = new MaxBinaryHeap<int>();
+            var heap = new BinaryHeap<int>(MinMax.MIN);
             heap.Insert(10);
             heap.Insert(5);
             heap.Insert(2);
@@ -11,26 +11,11 @@
             heap.Insert(1);
             heap.Insert(6);
             heap.Insert(7);
-            System.Console.WriteLine($"Max is: {heap.ExtractMax()}");
+            System.Console.WriteLine($"Max is: {heap.Extract()}");
 
-            foreach (var item in heap.ToArray())
-            {
-                System.Console.WriteLine(item);
-            }
+            System.Console.WriteLine($"Max is: {heap.Extract()}");
 
-            System.Console.WriteLine($"Max is: {heap.ExtractMax()}");
-
-            foreach (var item in heap.ToArray())
-            {
-                System.Console.WriteLine(item);
-            }
-
-            System.Console.WriteLine($"Max is: {heap.ExtractMax()}");
-
-            foreach (var item in heap.ToArray())
-            {
-                System.Console.WriteLine(item);
-            }
+            System.Console.WriteLine($"Max is: {heap.Extract()}");
         }
     }  
 }
