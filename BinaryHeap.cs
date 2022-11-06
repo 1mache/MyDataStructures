@@ -8,7 +8,7 @@ namespace MyDataStructures
 
     class BinaryHeap<T> where T:IComparable<T>
     {
-        private DynArray<T>? _items;
+        private DynArray<T> _items;
         private MinMax _type;
         public int Length{get; private set;} = 0;
 
@@ -17,19 +17,13 @@ namespace MyDataStructures
             //in all the comparisons the comparison sign is basically flipped
             //by multiplying by _type enum.
             _type = type;
+            _items = new DynArray<T>();
         }
 
         public void Insert(T item)
         {
             if(item is null)
                 throw new ArgumentNullException("Heap doesnt accept null");
-
-            if(_items is null)
-            {
-                _items = new DynArray<T>(item);
-                Length++;
-                return;
-            }
 
             _items.Add(item);
             int itemId = _items.Length - 1;
@@ -51,8 +45,8 @@ namespace MyDataStructures
 
         public T Extract()
         {
-            if(_items is null)
-                throw new InvalidOperationException();
+            if(_items.Length == 0)
+                throw new InvalidOperationException("Heap is empty");
             
             var max = _items[0];
 
@@ -76,7 +70,7 @@ namespace MyDataStructures
             int swapId = -1;
             int child1id = FirstChildId(startId), child2id = child1id + 1;
 
-            T compared = _items![startId]!;
+            T compared = _items[startId]!;
             //if children are in range
             if(child1id < _items!.Length)
             {
