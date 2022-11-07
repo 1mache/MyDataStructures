@@ -28,8 +28,8 @@ namespace MyDataStructures
             _items.Add(item);
             int itemId = _items.Length - 1;
             int parentId = ParentId(itemId);
-            //while parent is smaller(in MAX)/ bigger(in MIN)
-            while(item.CompareTo(_items[parentId]) * ((int)_type) > 0)
+            //while parent is smaller(in MAX)/ bigger(in MIN) or equal 
+            while(item.CompareTo(_items[parentId]) * ((int)_type) >= 0 && (itemId!=parentId))
             {
                 //swapping value with parent
                 var temp = _items[parentId];
@@ -47,12 +47,12 @@ namespace MyDataStructures
         {
             if(_items.Length == 0)
                 throw new InvalidOperationException("Heap is empty");
-            
+
             var max = _items[0];
 
             var temp = _items[_items.Length-1];
-            _items.RemoveAt(_items.Length-1);
             _items[0] = temp;
+            _items.RemoveAt(_items.Length-1);
             
             SinkDown(0);
 
@@ -66,11 +66,13 @@ namespace MyDataStructures
         private int FirstChildId(int parentId) => parentId*2 + 1; 
         private void SinkDown(int startId)
         {
+            if(_items.Length == 0)
+                return;
             //id of what we are going to swap with
             int swapId = -1;
             int child1id = FirstChildId(startId), child2id = child1id + 1;
 
-            T compared = _items[startId]!;
+            T compared = _items![startId]!;
             //if children are in range
             if(child1id < _items!.Length)
             {
