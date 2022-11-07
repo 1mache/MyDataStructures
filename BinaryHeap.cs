@@ -11,6 +11,13 @@ namespace MyDataStructures
         private DynArray<T> _items;
         private MinMax _type;
         public int Length{get; private set;} = 0;
+        public T Head 
+        { 
+            get
+            {
+                return _items[0]!;
+            }
+        }
 
         public BinaryHeap(MinMax type)
         {
