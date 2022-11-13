@@ -79,6 +79,25 @@ namespace MyDataStructures
             }
         }
 
+        public void Remove(K key)
+        {
+            if(key is null)
+                throw new ArgumentNullException("Key is null");
+
+            var idx = NormalizeIdx(_hashFunc.Invoke(key));
+
+            if(_storage[idx] is null)
+                throw new KeyNotFoundException($"HashTable does not contain key: {key}");
+            
+            bool removed = _storage[idx]!.Remove(pair => key.Equals(pair.Key));
+            
+            if(removed)
+                Length--;
+            else
+                throw new KeyNotFoundException($"HashTable does not contain key: {key}");
+                
+        }
+
         public void Clear()
         {
             _storage = new LinkedList<KeyValPair<K, V>>[DEFAULT_SIZE];

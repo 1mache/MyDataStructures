@@ -23,7 +23,9 @@
             ht.Add("Bobaa", 99);
             ht.Add("Lalo", 89);
             ht.Add("Lily", 9);
-            System.Console.WriteLine(ht["Dima"]);
+            ht.Remove("Mama");
+            System.Console.WriteLine(ht["Lalo"]);
+            System.Console.WriteLine(ht.Contains("Mama"));
         }
     }  
 }
