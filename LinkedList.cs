@@ -62,6 +62,13 @@ namespace MyDataStructures
             return default(T);
         }
 
+        public bool Contains(Predicate<T> predicate)
+        {
+            bool found;
+            Find(predicate, out found);
+            return found;
+        }
+
         public bool Remove(Predicate<T> predicate)
         {
             if(_head is null) return false;
