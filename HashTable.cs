@@ -1,76 +1,111 @@
 namespace MyDataStructures
 {
-    class HashTable<TKey, TValue>
+    class HashTable<K, V>
     {
-        LinkedList<KeyValPair<TKey, TValue>>?[] _storage;
-        Func<TKey, int> _hashFunc;
+        private const double MAX_LOAD_FACTOR = 0.7;
+        private const int DEFAULT_SIZE = 8;
         
+        private LinkedList<KeyValPair<K, V>>?[] _storage;
+        private readonly Func<K, int> _hashFunc;
+        //how many buckets are occupied, different from Length
+
         private double LoadFactor 
         {
-            get => Length / _storage.Length;   
+            get => Length *1.0 / _storage.Length;   
         }
 
+        //how many items there are in the table
         public int Length {get; private set;} = 0;
 
-        public HashTable(Func<TKey, int> hashFunc)
+        //default constructor with a default hash function
+        public HashTable()
+            :this(key => key is null ? throw new ArgumentNullException() : key.GetHashCode())
+        {}
+        public HashTable(Func<K, int> hashFunc)
         {
-            _storage = new LinkedList<KeyValPair<TKey, TValue>>[10];
+            _storage = new LinkedList<KeyValPair<K, V>>[DEFAULT_SIZE];
             _hashFunc = hashFunc;            
         }
 
-        public void Add(TKey key, TValue value)
+        public void Add(K key, V value)
         {
-            var idx = _hashFunc.Invoke(key) % _storage.Length;            
+            var idx = NormalizeIdx(_hashFunc.Invoke(key));
             
             if(_storage[idx] is null)
             {
-                _storage[idx] = new LinkedList<KeyValPair<TKey, TValue>>();
+                _storage[idx] = new LinkedList<KeyValPair<K, V>>();
             }
-            _storage[idx]!.Add(new KeyValPair<TKey, TValue>(key, value));
+            _storage[idx]!.Add(new KeyValPair<K, V>(key, value));
+            Length++;
+
+            if(LoadFactor > MAX_LOAD_FACTOR)
+            {
+                Expand();
+            }
         }
 
-        public bool Contains(TKey key)
+        public bool Contains(K key)
         {
             if(key is null)
                 throw new ArgumentNullException("Passed a null key");
 
-            var idx = _hashFunc.Invoke(key) % _storage.Length;
+            var idx = NormalizeIdx(_hashFunc.Invoke(key));
 
             if(_storage[idx] is null)
                 return false;
-            
-            foreach (var item in _storage[idx]!)
-            {
-                if(key.Equals(item.Key))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+    
+            return _storage[idx]!.Contains(item => key.Equals(item.Key));
         }
 
-        public TValue this[TKey key]
+        public V this[K key]
         {
             get 
             { 
                 if(key is null)
                     throw new ArgumentNullException("Passed a null key");
 
-                var idx = _hashFunc.Invoke(key) % _storage.Length;
+                var idx = NormalizeIdx(_hashFunc.Invoke(key));
 
                 if(_storage[idx] is null)
                     throw new KeyNotFoundException($"HashTable does not contain key: {key}");
                 
-                foreach (var item in _storage[idx]!)
-                {
-                    if(key.Equals(item.Key))
-                    {
-                        return item.Value;
-                    }
-                }
+                bool found;
+                var pair = _storage[idx]!.Find(item => key.Equals(item.Key), out found);
+
+                if(found) 
+                    return pair.Value;
                 
                 throw new KeyNotFoundException($"HashTable does not contain key: {key}");
+            }
+        }
+
+        public void Clear()
+        {
+            _storage = new LinkedList<KeyValPair<K, V>>[DEFAULT_SIZE];
+            Length = 0;
+        }
+
+        private int NormalizeIdx(int hashCode)
+        {
+            return Math.Abs(hashCode) % _storage.Length;
+        }
+
+        private void Expand()
+        {
+            var old_storage = _storage;
+            _storage = new LinkedList<KeyValPair<K, V>>[_storage.Length*2];
+            Length = 0;
+
+            foreach (var bucket in old_storage)
+            {
+                if(bucket is not null)
+                {
+                    foreach (var pair in bucket)
+                    {
+                        var (key, value) = pair;
+                        Add(key, value);
+                    }
+                }
             }
         }
     }

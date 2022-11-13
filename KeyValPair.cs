@@ -1,16 +1,16 @@
 namespace MyDataStructures
 {
-    struct KeyValPair<TKey, TValue>
+    struct KeyValPair<K, V>
     {
-        public TKey Key { get;}
-        public TValue Value { get; set;}
-        public KeyValPair(TKey key, TValue value)
+        public K Key { get;}
+        public V Value { get; set;}
+        public KeyValPair(K key, V value)
         {
             Key = key;
             Value = value;
         }
 
-        public void Deconstruct(out TKey key, out TValue value)
+        public void Deconstruct(out K key, out V value)
         {
             key = Key;
             value = Value;
