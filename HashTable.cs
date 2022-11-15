@@ -98,6 +98,42 @@ namespace MyDataStructures
                 
         }
 
+        public K?[] Keys()
+        {
+            DynArray<K> keys = new DynArray<K>();
+
+            foreach (var bucket in _storage)
+            {
+                if(bucket is not null)
+                {
+                    foreach (var item in bucket)
+                    {
+                        keys.Add(item.Key);
+                    }
+                }
+            }
+            
+            return keys.ToArray();
+        }
+
+        public V?[] Values()
+        {
+            DynArray<V> values = new DynArray<V>();
+
+            foreach (var bucket in _storage)
+            {
+                if(bucket is not null)
+                {
+                    foreach (var item in bucket)
+                    {
+                        values.Add(item.Value);
+                    }
+                }
+            }
+
+            return values.ToArray();
+        }
+
         public void Clear()
         {
             _storage = new LinkedList<KeyValPair<K, V>>[DEFAULT_SIZE];

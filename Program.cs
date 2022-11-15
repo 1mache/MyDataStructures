@@ -26,6 +26,8 @@
             ht.Remove("Mama");
             System.Console.WriteLine(ht["Lalo"]);
             System.Console.WriteLine(ht.Contains("Mama"));
+            ht.Keys();
+            ht.Values();
         }
     }  
 }
