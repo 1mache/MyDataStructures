@@ -29,12 +29,17 @@ namespace MyDataStructures
 
         public void Add(K key, V value)
         {
+            if(key is null)
+                throw new ArgumentNullException("Passed a null key");
+
             var idx = NormalizeIdx(_hashFunc.Invoke(key));
             
             if(_storage[idx] is null)
-            {
                 _storage[idx] = new LinkedList<KeyValPair<K, V>>();
-            }
+            
+            else if (_storage[idx]!.Contains(item => key.Equals(item.Key)))
+                throw new InvalidOperationException("Hash table already has that key");
+
             _storage[idx]!.Add(new KeyValPair<K, V>(key, value));
             Length++;
 
@@ -112,7 +117,7 @@ namespace MyDataStructures
                     }
                 }
             }
-            
+
             return keys.ToArray();
         }
 
