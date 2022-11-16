@@ -103,7 +103,7 @@ namespace MyDataStructures
                 
         }
 
-        public K?[] Keys()
+        public K[] Keys()
         {
             DynArray<K> keys = new DynArray<K>();
 
@@ -118,7 +118,7 @@ namespace MyDataStructures
                 }
             }
 
-            return keys.ToArray();
+            return keys.ToArray()!;
         }
 
         public V?[] Values()
