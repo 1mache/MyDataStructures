@@ -1,6 +1,6 @@
 namespace MyDataStructures
 {
-    class BST<T> where T:IComparable<T>
+    class BST<T>:ITree<T> where T:IComparable<T>
     {
         private BSTNode<T>? _root;
 
@@ -20,7 +20,7 @@ namespace MyDataStructures
             void internalInsert(BSTNode<T> node)
             {
                 //item is smaller
-                if(node.Value.CompareTo(item) == 1)
+                if(node.Value!.CompareTo(item) == 1)
                 {
                     if(node.Left is null)
                     {
@@ -49,7 +49,7 @@ namespace MyDataStructures
             while (node is not null)
             {
                 //equals
-                if(node.Value.CompareTo(value) == 0) return node;
+                if(node.Value!.CompareTo(value) == 0) return node;
                 //value is smaller
                 else if(node.Value.CompareTo(value) == 1)
                 {
@@ -74,7 +74,7 @@ namespace MyDataStructures
             while(nodeQueue.Count != 0)
             {
                 var node = nodeQueue.Pop();
-                data.Add(node!.Value);
+                data.Add(node!.Value!);
                 
                 if(node.Left is not null) nodeQueue.Push(node.Left);
                 if(node.Right is not null) nodeQueue.Push(node.Right);
@@ -91,7 +91,7 @@ namespace MyDataStructures
             {
                 var data = new DynArray<T>();
 
-                data.Add(node.Value);
+                data.Add(node.Value!);
                 if(node.Left is not null) data.AddRange(preOrderInternal(node.Left)!);
                 if(node.Right is not null) data.AddRange(preOrderInternal(node.Right)!);
 
@@ -111,7 +111,7 @@ namespace MyDataStructures
 
                 if(node.Left is not null) data.AddRange(postOrderInternal(node.Left)!);
                 if(node.Right is not null) data.AddRange(postOrderInternal(node.Right)!);
-                data.Add(node.Value);
+                data.Add(node.Value!);
 
                 return data;
             }
@@ -128,13 +128,18 @@ namespace MyDataStructures
                 var data = new DynArray<T>();
 
                 if(node.Left is not null) data.AddRange(inOrderInternal(node.Left)!);
-                data.Add(node.Value);
+                data.Add(node.Value!);
                 if(node.Right is not null) data.AddRange(inOrderInternal(node.Right)!);
 
                 return data;
             }
 
             return inOrderInternal(_root).ToArray()!;
+        }
+
+        public ITreeNode<T>? GetRoot()
+        {
+            return _root;
         }
     }
 }
