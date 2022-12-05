@@ -29,16 +29,22 @@
             // ht.Keys();
             // ht.Values();
 
-            var graph = new Graph<string>();
-            graph.AddVertex("Ohio");
-            graph.AddVertex("North Carolina");
-            graph.AddVertex("NY");
-            graph.AddVertex("Florida");
-            graph.AddEdge("NY", "Ohio");
-            graph.AddEdge("Ohio", "Florida");
-            graph.RemoveVertex("NY");
-            System.Console.WriteLine(graph.ToString());
+            // var graph = new Graph<string>();
+            // graph.AddVertex("Ohio");
+            // graph.AddVertex("North Carolina");
+            // graph.AddVertex("NY");
+            // graph.AddVertex("Florida");
+            // graph.AddEdge("NY", "Ohio");
+            // graph.AddEdge("Ohio", "Florida");
+            // graph.RemoveVertex("NY");
+            // System.Console.WriteLine(graph.ToString());
 
+            var idtree = new IndexedTree<int>();
+
+            idtree.Add(-1, 100);
+
+            var displayer = new TreeTextDisplay();
+            System.Console.WriteLine(displayer.TreeToString<int>(idtree, v => $"({v.ToString()})"));
         }
     }  
 }

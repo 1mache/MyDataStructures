@@ -17,19 +17,18 @@ class IndexedTree<T> : ITree<T>
     
     public void Add(int parentId, T value)
     {
-        IndexedTreeNode<T>? node;
 
         //id validation
         if(parentId == -1 && _nodeList.Length == 0)
         {
             _root = new IndexedTreeNode<T>(value);
-            node = _root;
+            _nodeList.Add(_root);
+            return;
         }
-
-        if(parentId > _nodeList.Length-1 || parentId<0)
+        else if(parentId > _nodeList.Length-1 || parentId<0)
             throw new Exception("<temp>");
         
-        node = new IndexedTreeNode<T>(value);
+        IndexedTreeNode<T> node = new IndexedTreeNode<T>(value);
         //Temp
         if(_nodeList[parentId] is null) 
             throw new Exception("parent node null");
