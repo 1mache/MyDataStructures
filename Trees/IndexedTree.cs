@@ -2,40 +2,49 @@ namespace MyDataStructures;
 
 class IndexedTree<T> : ITree<T>
 {
+    private const int MIN_ID=1000;
+
     private IndexedTreeNode<T>? _root;
-    private DynArray<IndexedTreeNode<T>> _nodeList;
+    private HashTable<int, IndexedTreeNode<T>> _nodeTable;
+    private int _nextIdx = MIN_ID;
 
     public int Count
     {
-        get => _nodeList.Length;
+        get => _nodeTable.Length;
     }
 
     public IndexedTree()
     {   
-        _nodeList = new DynArray<IndexedTreeNode<T>>();
+        _nodeTable = new HashTable<int, IndexedTreeNode<T>>();
     }
     
     public void Add(int parentId, T value)
     {
-
-        //id validation
-        if(parentId == -1 && _nodeList.Length == 0)
+        //executed first time
+        if(_nodeTable.Length == 0)
         {
-            _root = new IndexedTreeNode<T>(value);
-            _nodeList.Add(_root);
+            _root = new IndexedTreeNode<T>(_nextIdx,value);
+            _nodeTable.Add(_nextIdx,_root);
+            _nextIdx ++;
             return;
         }
-        else if(parentId > _nodeList.Length-1 || parentId<0)
-            throw new Exception("<temp>");
-        
-        IndexedTreeNode<T> node = new IndexedTreeNode<T>(value);
-        //Temp
-        if(_nodeList[parentId] is null) 
-            throw new Exception("parent node null");
-        //Temp
-        _nodeList[parentId]!.AddChild(node);
 
-        _nodeList!.Add(node);
+        //id validation
+        if( (parentId > MIN_ID + _nodeTable.Length-1) || (parentId<0))
+            throw new IndexOutOfRangeException("parentId is not valid");
+        
+        IndexedTreeNode<T> node = new IndexedTreeNode<T>(_nextIdx,value);
+
+        if(!_nodeTable.Contains(parentId))
+            throw new KeyNotFoundException("Tree does not contain a node with such id");
+
+        if(_nodeTable[parentId] is null) 
+            throw new Exception("parent node null");
+
+        _nodeTable[parentId].AddChild(node);
+
+        _nodeTable.Add(_nextIdx,node);
+        _nextIdx++;
     }
 
     public ITreeNode<T>? GetRoot()
