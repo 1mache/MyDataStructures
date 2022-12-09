@@ -28,4 +28,11 @@ class IndexedTreeNode<T> : ITreeNode<T>
     {
         return _children.ToArray()!;
     }
+
+    public string? TextDisplay(Func<T,string>? valueToString = null)
+    {
+        if(Value is null) return "null";
+        if(valueToString is null) return $"({Value.ToString()}) : [{Idx}]";
+        return $"({valueToString(Value)}) : [{Idx}]";
+    }
 }

@@ -45,14 +45,7 @@
 
             var displayer = new TreeTextDisplay();
 
-            string idTreeNode2text(IndexedTreeNode<int> node)
-            {
-                return $"({node.Value!.ToString()})-[{node.Idx}]";
-            }
-
-            // Func<ITreeNode<int>,string> myFunc = new Func<ITreeNode<int>, string>();
-
-            // System.Console.WriteLine(displayer.TreeToString<int>(idtree, idTreeNode2text);
+            System.Console.WriteLine(displayer.TreeToString<int>(idtree));
         }
     }  
 }

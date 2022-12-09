@@ -21,5 +21,12 @@ namespace MyDataStructures
 
             return list.ToArray()!;
         }
+
+        public string? TextDisplay(Func<T, string>? valueToString = null)
+        {
+            if(Value is null) return "null";
+            if(valueToString is null) return $"({Value.ToString()})";
+            return $"({valueToString(Value)})";
+        }
     }
 }
