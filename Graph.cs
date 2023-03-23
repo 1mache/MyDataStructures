@@ -85,6 +85,39 @@ namespace MyDataStructures
             _adjacencyList.Remove(vertex);
         }
 
+        public T?[] DepthFirstTraversal()
+        {
+            var result = new DynArray<T>();
+            var visited = new HashTable<T, bool>();
+            
+            void DFTInternal(T node)
+            {
+                result.Add(node);
+                visited.Add(node, true);
+                var edgeList = _adjacencyList[node];
+
+                if(edgeList.Length != 0)
+                {
+                    foreach (var connected in edgeList)
+                    {
+                        if(!visited.Contains(connected!))
+                        {
+                            DFTInternal(connected!);
+                        }
+                    }
+                }
+            }
+            
+            // This loop is present so the program doesnt get stuck if 
+            //there is an unconnected vertex in the graph and doesnt miss it. 
+            foreach (var node in _adjacencyList.Keys())
+            {
+                if(!visited.Contains(node))
+                    DFTInternal(node);
+            }
+            return result.ToArray();
+        }
+
         public override string ToString()
         {
             string result = "";
