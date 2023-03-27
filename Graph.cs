@@ -118,6 +118,38 @@ namespace MyDataStructures
             return result.ToArray();
         }
 
+        public T?[] BreathFirstTraversal()
+        {
+            var result = new DynArray<T>();
+            var visited = new HashTable<T, bool>();
+            var nodeQueue = new Queue<T>();
+
+            var keys = _adjacencyList.Keys();
+
+            foreach (var key in keys)
+            {
+                nodeQueue.Push(key);
+
+                while (nodeQueue.Count > 0)
+                {
+                    var next = nodeQueue.Pop();
+                    if(!visited.Contains(next!))
+                    {
+                        visited.Add(next!, true);
+                        result.Add(next!);
+
+                        foreach (var connected in _adjacencyList[next!])
+                        {
+                            nodeQueue.Push(connected!);
+                        }
+                    }
+                
+                }
+            }
+            
+            return result.ToArray();
+        }
+
         public override string ToString()
         {
             string result = "";
